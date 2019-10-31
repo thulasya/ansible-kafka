@@ -1,0 +1,58 @@
+########
+# * File: c:\ansible\roles\kafka\tasks\main.yml
+# * Project: c:\ansible\roles\kafka\tasks
+# * Created Date: Thursday, July 25th 2019, 9:54:39 am
+# * Author: Thulasya Rajakaruna
+# * -----
+# * Copyright (c) 2019 Thulasya Rajakaruna
+#######
+
+- name: set time zone to colombo
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  timezone:
+    name: Asia/Colombo
+  sudo: yes
+
+- name: Install necesary Packages for kafka
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  yum:
+    name:
+     - wget
+     - telnet
+     - unzip
+     - "@Development tools"
+    state: latest
+  sudo: yes
+
+- name: install one specific version of java8
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  yum:
+    name: 
+     - java-1.8.0-openjdk
+     - java-1.8.0-openjdk-devel
+    state: present
+  sudo: yes
+  
+- name: kafka folder creating
+  file:
+    path: /usr/local/kafka
+    state: directory
+    recurse: yes
+  sudo: yes
+  ignore_errors: yes
+
+- name: confluent binary download 
+  unarchive:
+    src: "{{confluent}}"
+    dest: /usr/local/kafka/
+    remote_src: yes
+    owner: root
+    group: root
+  sudo: yes
+  ignore_errors: yes
+
+- name: Ensure server.properties is present
+  template:
+    src: server.cfg
+    dest: /usr/local/kafka/{{confluent_folder}}/etc/kafka/server.properties
+  sudo: yes

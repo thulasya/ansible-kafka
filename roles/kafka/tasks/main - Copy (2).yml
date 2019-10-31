@@ -1,0 +1,5 @@
+
+- name: Ensure server.properties is present
+  template:
+    src: server.cfg
+    dest: /usr/local/kafka/confluent-5.0.0/etc/kafka/server.properties

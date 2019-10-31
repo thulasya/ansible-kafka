@@ -1,0 +1,20 @@
+#######
+# * File: c:\ansible\roles\zookeeper\vars\main.yml
+# * Project: c:\ansible\roles\zookeeper\vars
+# * Created Date: Tuesday, July 23rd 2019, 1:49:33 pm
+# * Author: Thulasya Rajakaruna
+# * -----
+# * Copyright (c) 2019 Thulasya Rajakaruna
+#######
+
+
+
+
+
+
+
+
+# vars file for zookeeper
+
+kafka_src: https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz
+kafka_folder: kafka_2.11-0.11.0.0

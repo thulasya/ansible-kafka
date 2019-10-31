@@ -1,0 +1,70 @@
+#######
+# * File: c:\ansible\roles\zookeeper\tasks\main.yml
+# * Project: c:\ansible\roles\zookeeper\tasks
+# * Created Date: Tuesday, July 23rd 2019, 1:49:33 pm
+# * Author: Thulasya Rajakaruna
+# * -----
+# * Copyright (c) 2019 Thulasya Rajakaruna
+#######
+
+
+- name: set time zone to colombo
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  timezone:
+    name: Asia/Colombo
+  sudo: yes
+
+- name: Install necesary Packages for kafka
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  yum:
+    name:
+     - wget
+     - telnet
+     - unzip
+     - "@Development tools"
+    state: latest
+  sudo: yes
+
+- name: install one specific version of java8
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  yum:
+    name: 
+     - java-1.8.0-openjdk
+     - java-1.8.0-openjdk-devel
+    state: present
+  sudo: yes
+
+- name: kafka folder creating
+  command: mkdir -p /usr/local/kafka
+  args:
+    warn: false
+  sudo: yes
+  ignore_errors: yes
+
+- name: kafka binary download 
+  unarchive:
+    src: "{{kafka_src}}"
+    dest: /usr/local/kafka/
+    owner: root
+    group: root
+    remote_src: yes
+  ignore_errors: yes
+
+- name: Ensure zookeeper.properties is present
+  template:
+    src: zookeeper.cfg
+    dest: /usr/local/kafka/{{kafka_folder}}/config/zookeeper.properties
+    owner: root
+    group: root
+
+- name: createing zookiper folder /var/lib/zookeeper
+  command: mkdir -p /var/lib/zookeeper
+  sudo: yes
+  ignore_errors: yes
+
+- name: Ensure myid is set in myid
+  template:
+    src: myid
+    dest: "/var/lib/zookeeper/myid"
+  sudo: yes
+  ignore_errors: yes

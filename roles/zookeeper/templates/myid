@@ -1,0 +1,3 @@
+{% if "tag_zookeeper-ansible" in group_names %}
+{{ ansible_hostname | regex_replace('[^0-9]','') | regex_replace('^0+','') }}
+{% endif %}

@@ -1,0 +1,6 @@
+---
+- hosts: tag_ansible-kafka
+  sudo: yes
+  roles: 
+   - kafka
+  # - test 

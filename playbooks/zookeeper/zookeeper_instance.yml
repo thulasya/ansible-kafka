@@ -1,0 +1,6 @@
+---
+- hosts: tag_zookeeper-ansible
+  sudo: yes
+  roles: 
+   - zookeeper
+  # - test 

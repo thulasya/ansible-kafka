@@ -1,0 +1,13 @@
+#######
+# * File: c:\ansible\roles\kafka\vars\main.yml
+# * Project: c:\ansible\roles\kafka\vars
+# * Created Date: Thursday, July 25th 2019, 9:54:39 am
+# * Author: Thulasya Rajakaruna
+# * -----
+# * Copyright (c) 2019 Thulasya Rajakaruna
+#######
+
+
+# vars file for kafka
+confluent: http://packages.confluent.io/archive/5.0/confluent-5.0.0-2.11.tar.gz
+confluent_folder: confluent-5.0.0
