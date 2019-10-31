@@ -12,6 +12,7 @@ This will only run and tested in centos 7 environment and only config for that e
 
 Role Variables
 --------------
+```
 vars/main.yml
 
 # vars file for kafka
@@ -26,7 +27,7 @@ broker.id= <>
 listeners= <>
 zookeeper.connect= <>
 
-
+```
 Dependencies
 ------------
 
