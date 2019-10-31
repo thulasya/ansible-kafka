@@ -1,32 +1,52 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Kafka role which will install and config kafka_2.11-0.11.0.0.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+GCP firewall tags should be added in to according to kafka and zookeeper playbooks
+
+This will only run and tested in centos 7 environment and only config for that environment it self
 
 Role Variables
 --------------
+```
+vars/main.yml
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+# vars file for kafka
+kafka_src: https://archive.apache.org/dist/kafka/0.11.0.0/kafka_2.11-0.11.0.0.tgz
+kafka_folder: kafka_2.11-0.11.0.0
 
+templates/zookeeper.cfg
+
+# templates file
+This will auto added all brokers and zookeepers for kafka
+clientPortAddress= <>
+server.{{loop.index}}= <>
+
+templates/myid
+
+<This will add id for each hosts>
+
+```
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This will install all the depedencies, But You must spinup zookeeper and kafka instances with requested firewall tags
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
+```
+---
+- hosts: tag_zookeeper-ansible  <THIS IS MY ZOOKEEPER FIREWALL TAG>
+  sudo: yes
+  roles: 
+   - zookeeper
+```
 License
 -------
 
@@ -35,4 +55,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Ansible was created by [Thulasya Rajakaruna](https://github.com/thulasya)
